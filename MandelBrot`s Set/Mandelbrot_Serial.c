@@ -1,11 +1,9 @@
 #include <stdio.h>
 #include <math.h>
-#include<time.h>
+
 
  int main()
- {	clock_t ti;
-	ti=clock();
-	int num_thrds=4;
+ {
     
         int ix,iy;
         const int ix_max = 800;
@@ -73,8 +71,6 @@
                 }
         }
         fclose(fp);
-	ti=clock()-ti;
-	printf("Execution Time: %f \n",((double)ti)/CLOCKS_PER_SEC); 
         return 0;
  
  }
