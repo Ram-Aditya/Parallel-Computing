@@ -1,7 +1,6 @@
-
 #include <stdio.h>
- #include <math.h>
- #include<omp.h>
+#include <math.h>
+#include<omp.h>
 
  int main()
  {	int num_thrds=4;
@@ -26,35 +25,36 @@
         char *comment="# ";
 	static unsigned char color[3];
   
-        double Zx, Zy,Zx2,Zy2;
+        double zx, zy,zx2,zy2;
      
         fp= fopen(filename,"wb"); 
         fprintf(fp,"P6\n %s\n %d\n %d\n %d\n",comment,ix_max,iy_max,max_color_comp);
        
 	omp_set_dynamic(0);
-        omp_set_num_threads(num_thrds);
+        omp_set_num_threads(omp_get_max_threads());
         #pragma omp parallel for private(y) schedule(runtime)
         for(iy=0;iy<iy_max;iy++)
         {
              y=y_min + iy*pix_h;
              if (fabs(y)< pix_h/2) y=0.0; //Antenna
-             #pragma omp parallel for private(x,Zx,Zy,Zx2,Zy2) schedule(runtime)
+	     omp_set_num_threads(omp_get_max_threads());
+             #pragma omp parallel for private(x,zx,zy,zx2,zy2) schedule(runtime)
              for(ix=0;ix<ix_max;ix++)
              {
                         x=x_min + ix*pix_w;
                        
-                        Zx=0.0;
-                        Zy=0.0;
-                        Zx2=Zx*Zx;
-                        Zy2=Zy*Zy;
+                        zx=0.0;
+                        zy=0.0;
+                        zx2=zx*zx;
+                        zy2=zy*zy;
   			
 			
-                        for (t=1;t<t_max && (Zx2+Zy2)<esc_rad*esc_rad;t++)
+                        for (t=1;t<t_max && (zx2+zy2)<esc_rad*esc_rad;t++)
                         {
-                            Zy=2*Zx*Zy +y;
-                            Zx=Zx2-Zy2 +x;
-                            Zx2=Zx*Zx;
-                            Zy2=Zy*Zy;
+                            zy=2*zx*zy +y;
+                            zx=zx2-zy2 +x;
+                            zx2=zx*zx;
+                            zy2=zy*zy;
                         }
 
                         if (t==t_max)
