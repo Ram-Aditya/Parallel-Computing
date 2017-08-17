@@ -1,10 +1,15 @@
 
 #include <stdio.h>
- #include <math.h>
- #include<omp.h>
+#include <math.h>
+#include <omp.h>
+#include <time.h>
 
  int main()
- {	int num_thrds=4;
+ {
+	clock_t ti;
+	ti=clock();
+
+	//int num_thrds=4;
     
         int ix,iy;
         const int ix_max = 800;
@@ -22,7 +27,7 @@
        
         const int max_color_comp=255;
         FILE * fp;
-        char *filename="new1.ppm";
+        char *filename="parallel5.ppm";
         char *comment="# ";
 	static unsigned char color[3];
   
@@ -31,14 +36,14 @@
         fp= fopen(filename,"wb"); 
         fprintf(fp,"P6\n %s\n %d\n %d\n %d\n",comment,ix_max,iy_max,max_color_comp);
        
-	omp_set_dynamic(0);
-        omp_set_num_threads(num_thrds);
-        #pragma omp parallel for private(y) schedule(runtime)
+	//omp_set_dynamic(0);
+        //omp_set_num_threads(num_thrds);
+        #pragma omp parallel for private(y)
         for(iy=0;iy<iy_max;iy++)
         {
              y=y_min + iy*pix_h;
              if (fabs(y)< pix_h/2) y=0.0; //Antenna
-             #pragma omp parallel for private(x,Zx,Zy,Zx2,Zy2) schedule(runtime)
+             #pragma omp parallel for private(x,Zx,Zy,Zx2,Zy2)
              for(ix=0;ix<ix_max;ix++)
              {
                         x=x_min + ix*pix_w;
@@ -75,6 +80,10 @@
                 }
         }
         fclose(fp);
+
+	
+	ti=clock()-ti;
+	printf("Execution Time: %f \n",((double)ti)/CLOCKS_PER_SEC); 
         return 0;
  
  }
