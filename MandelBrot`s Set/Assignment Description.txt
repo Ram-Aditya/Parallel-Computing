@@ -1,0 +1,7 @@
+The Mandelbrot set is the set of complex numbers  c for which the function f(z)=z^2 + cdoes not diverge when iterated from  z=0.
+
+The set is connected to a Julia set, and related Julia sets produce similarly complex fractal shapes.
+Mandelbrot set images may be created by sampling the complex numbers and determining, for each sample point  c, whether the result of iterating the above function goes to infinity. 
+
+The functions in question have the form f(z)=z2+c, where c is a complex number. For each c, we seed the function by plugging in 0 as the initial value for z. Then we take whatever we get out and plug it back into the function. As we iterate the function, one of two things can happen: either the iterates get larger and larger in general, moving further and further away from 0, or they stay close, possibly bouncing around the area wildly but never getting very far from 0. 
+The values of c for which these iterates stay close to 0, colored black in the picture , make up the Mandelbrot set

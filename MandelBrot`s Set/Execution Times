@@ -1,0 +1,15 @@
+Execution Times for 5 runs of each version.
+
+Serial     = { 1.030748, 1.031009, 1.027788, 1.032606, 1.019484 };   Avg = 1.028327
+Parallel_y(Parallelizing Outer Loop Only-which controls y-coordinate) = { 1.261044, 1.303040, 1.267680, 1.212914, 1.215516 };   Avg = 1.2520388
+Parallel_x(Parallelizing Inner Loop Only-which controls x-coordinate) = { 6.335376, 5.366204, 6.999613, 6.571343, 6.571343 };   Avg = 6.3687758
+Parallel   = { 1.504094, 1.651007, 1.460044, 1.446505, 1.561334 };   Avg = 1.5245968
+
+Inference:
+
+The speed gain due to multi-threading does not perform a great job of compensating for the overheads.
+
+Also note that by parallelizing only outer loop,each inner loop is performed by all the threads which results in aberrations in the ouput image.Furthermore,this leads to huge increase in execution time.
+
+
+

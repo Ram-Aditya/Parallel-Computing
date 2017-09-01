@@ -1,0 +1,6 @@
+The images are the output of 5 runs of each of the different versions of the parallelized code.
+
+  Image Name
+parallel_x :	Produced by parallelizing the inner loop alone.(x-coordinate)
+parallel_y : 	Produced by parallelizing the outer loop alone.(y-coordinate)
+parallel   :	Produced by appropriately parallelizing both loops which produces much better images.
